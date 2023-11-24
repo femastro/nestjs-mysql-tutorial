@@ -6,12 +6,15 @@ import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/user.entity';
 import { Repository } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class LoginService {
     
     constructor(
-        @InjectRepository(User) private authRepository:Repository<User>,
+        @InjectRepository(User)
+        private authRepository:Repository<User>,
+        private jwtService: JwtService
     ){}
     
     async login(user: CreateUserDto) {
@@ -26,16 +29,18 @@ export class LoginService {
             )
             
             const isMatch = await bcrypt.compare(user.password, userLogin.password );
-    
+
             if (!isMatch){
                 return new HttpException('User & Password incorrect !', HttpStatus.UNAUTHORIZED)
             }
 
-            delete(userLogin.password);
-            return userLogin;
+            const payload = { sub: userLogin.password, username: userLogin.username };
+
+            return this.jwtService.signAsync(payload);
+            
 
         } catch (e) {
-            return ({"status":400,"message":"something went wrong"});
+            return ({"Error":e,"status":400,"message":"something went wrong"});
         }
 
     }
