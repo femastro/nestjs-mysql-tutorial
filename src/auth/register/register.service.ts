@@ -39,8 +39,8 @@ export class RegisterService {
     
         const newUser = this.userRepository.create(userCreate);
         await this.userRepository.save(newUser);
-        delete(newUser.password);
-        return newUser;
+   
+        return {"status":200,"message":"New user created !"};
       }
 
 }
