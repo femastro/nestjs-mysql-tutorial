@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CreateUserDto } from "src/users/dto/create-user.dto";
+import { CreateUserDto } from "src/dto/create-user.dto";
 
 export function SchemaUser (user: CreateUserDto){
 
