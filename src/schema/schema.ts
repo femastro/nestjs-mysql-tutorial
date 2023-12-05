@@ -1,17 +1,15 @@
-import { z } from "zod";
-import { CreateUserDto } from "src/dto/create-user.dto";
+import { z } from 'zod';
+import { CreateUserDto } from 'src/dto/create-user.dto';
 
-export function SchemaUser (user: CreateUserDto){
+export function SchemaUser(user: CreateUserDto) {
+  const userSchema = z.object({
+    username: z.string().email().trim(),
+  });
 
-    const userSchema = z.object({
-        username: z.string().email().trim(),
-    })
-    
-    try {
-        userSchema.parse(user);
-        return {"status": 200};
-    } catch (e) {
-        return {"status": 403};
-    }
-
+  try {
+    userSchema.parse(user);
+    return { status: 200 };
+  } catch (e) {
+    return { status: 403 };
+  }
 }

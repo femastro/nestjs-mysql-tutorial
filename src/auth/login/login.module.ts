@@ -7,12 +7,13 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '../constant';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]),
-  JwtModule.register({
-    global: true,
-    secret: jwtConstants.secret,
-    signOptions: { expiresIn: '60s' },
-  })
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    JwtModule.register({
+      global: true,
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '60s' },
+    }),
   ],
   providers: [LoginService],
   controllers: [LoginController],

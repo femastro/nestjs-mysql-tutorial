@@ -14,7 +14,6 @@ export class UsersService {
   ) {}
 
   async createUser(user: CreateUserDto) {
-    
     const res = SchemaUser(user);
     if (res.status >= 400) {
       return new HttpException(
