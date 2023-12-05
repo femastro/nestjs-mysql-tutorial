@@ -11,6 +11,12 @@ export class User {
   @Column()
   password: string;
 
+  @Column()
+  name: string;
+
+  @Column()
+  lastName: string;
+
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 

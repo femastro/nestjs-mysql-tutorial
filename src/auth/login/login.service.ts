@@ -36,7 +36,7 @@ export class LoginService {
 
       return this.jwtService.signAsync(payload);
     } catch (e) {
-      return { Error: e, status: 400, message: 'something went wrong' };
+      return { Error: e, status: 400, message: 'Something went wrong !' };
     }
   }
 }

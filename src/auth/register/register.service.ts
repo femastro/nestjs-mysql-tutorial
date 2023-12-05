@@ -33,15 +33,17 @@ export class RegisterService {
       return new HttpException('User already exists !', HttpStatus.CONFLICT);
     }
 
-    const { username, password } = user;
+    const { username, password, name, lastName } = user;
 
     /// CREA HASH PARA EL PASSWORD
-    const salt = await bcrypt.genSalt();
+    const salt = await bcrypt.genSalt(10);
     const newPassword = await bcrypt.hash(password, salt);
 
     const userCreate = {
       username: username,
       password: newPassword,
+      name: name,
+      lastName: lastName,
     };
 
     const newUser = this.userRepository.create(userCreate);
